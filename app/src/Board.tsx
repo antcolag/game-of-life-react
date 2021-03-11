@@ -13,8 +13,40 @@ export default class Board extends React.Component<{game: GameOfLife}> {
     this.output = React.createRef();
   }
 
+	setSizeX(x: number) {
+		this.props.game.size.x = x
+    this.draw()
+	}
+
+	setSizeY(y: number) {
+		this.props.game.size.y = y
+    this.draw()
+	}
+
   componentDidMount() {
+    this.output?.current?.addEventListener("click", e => {
+      const {height, width} = this.getTileSize()
+      const x = ((e.clientX - (this.output?.current?.offsetLeft || 0)) / width) >>> 0
+      const y = ((e.clientY - (this.output?.current?.offsetTop || 0)) / height) >>> 0
+      this.props.game.tilemap[y][x] = !this.props.game.tilemap[y][x]
+      console.log(x, y)
+      this.draw()
+    });
     this.update()
+  }
+
+  resize() {
+    if(this.output?.current) {
+      this.output.current.width  = this.output.current.offsetWidth;
+      this.output.current.height = this.output.current.offsetHeight;
+    }
+  }
+
+  getTileSize() {
+    return  {
+      width: (this.output?.current?.width || 0) / (this.props.game.size.x),
+      height: (this.output?.current?.height || 0) / (this.props.game.size.y)
+    }
   }
 
   setSpeed(speed: number){
@@ -28,23 +60,9 @@ export default class Board extends React.Component<{game: GameOfLife}> {
   }
 
   update() {
-    const canvas = this.output?.current
-    if(!canvas) {
-      throw new Error("canvas is not defined")
-    }
+    this.draw()
 
-    const ctx = canvas.getContext("2d")
-
-    if(!ctx) {
-      throw new Error("ctx is not defined")
-    }
-
-    ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height)
-    ctx.fillStyle = '#000000'
-    ctx.beginPath()
-    ctx.arc(50, 100, 20*Math.sin(this.frameCount++*0.05)**2, 0, 2*Math.PI)
-    ctx.fill()
-
+    this.props.game.next()
 
     if(this.speed === 100){
       requestAnimationFrame(this.update.bind(this))
@@ -55,6 +73,21 @@ export default class Board extends React.Component<{game: GameOfLife}> {
     }
     this.stopped = false
     setTimeout(this.update.bind(this), this.mapPercValue())
+  }
+
+  draw() {
+    const ctx = this.output?.current?.getContext("2d")
+    if(!ctx) {
+      return
+    }
+    ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height)
+    const {height, width } = this.getTileSize()
+    for(let i=0; i < this.props.game.size.y; i++) {
+      for(let j=0; j < this.props.game.size.x; j++) {
+        ctx.fillStyle = this.props.game.isAlive(j, i) ? '#000000' : '#FFFFFF'
+        ctx.fillRect(i * width, j * height, width + 1, height + 1);
+      }
+    }
   }
 
   render() {
