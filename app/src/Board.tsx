@@ -30,7 +30,6 @@ export default class Board extends React.Component<{game: GameOfLife}> {
       const x = ((e.clientX - (rect?.left || 0)) / width) >>> 0
       const y = ((e.clientY - (rect?.top || 0)) / height) >>> 0
       this.props.game.tilemap[y][x] = !this.props.game.tilemap[y][x]
-      console.log(y, x)
       this.draw()
     });
     this.resize()
