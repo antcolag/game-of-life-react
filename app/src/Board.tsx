@@ -32,6 +32,7 @@ export default class Board extends React.Component<{game: GameOfLife}> {
       console.log(x, y)
       this.draw()
     });
+    this.resize()
     this.update()
   }
 
