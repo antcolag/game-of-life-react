@@ -26,10 +26,11 @@ export default class Board extends React.Component<{game: GameOfLife}> {
   componentDidMount() {
     this.output?.current?.addEventListener("click", e => {
       const {height, width} = this.getTileSize()
-      const x = ((e.clientX - (this.output?.current?.offsetLeft || 0)) / width) >>> 0
-      const y = ((e.clientY - (this.output?.current?.offsetTop || 0)) / height) >>> 0
+      const rect = this.output?.current?.getBoundingClientRect();
+      const x = ((e.clientX - (rect?.left || 0)) / width) >>> 0
+      const y = ((e.clientY - (rect?.top || 0)) / height) >>> 0
       this.props.game.tilemap[y][x] = !this.props.game.tilemap[y][x]
-      console.log(x, y)
+      console.log(y, x)
       this.draw()
     });
     this.resize()

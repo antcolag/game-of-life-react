@@ -26,6 +26,7 @@ body {
 main {
   position: relative;
   flex-grow: 1;
+  background-color: lightgray;
 }
 
 label {
