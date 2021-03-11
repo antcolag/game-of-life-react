@@ -30,9 +30,8 @@ export default class GameOfLife {
 		if (this.tilemap[i][j]) {
 			return neighborsCount === 3
 		} else {
-			return neighborsCount == 2 || neighborsCount == 3
+			return neighborsCount === 2 || neighborsCount === 3
 		}
-
 	}
 
 	private neighborhood(i: number, j: number) {

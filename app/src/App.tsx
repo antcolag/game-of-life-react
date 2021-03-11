@@ -1,18 +1,27 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, {RefObject} from 'react';
 import GameOfLife from './gameOfLife'
 import './App.css';
+import Board from './Board';
 
 
 class App extends React.Component {
-  game: GameOfLife = new GameOfLife();
+  board?: RefObject<Board>;
+  speedSlider?: RefObject<HTMLInputElement>;
+  constructor(props: any) {
+    super(props);
+    console.log(this)
+    this.board = React.createRef();
+    this.speedSlider = React.createRef();
+  }
+
   render() {
     return (
       <div className="App">
         <header className="App-header">
+        <input type="range"  ref={this.speedSlider} onChange={val => this.board?.current?.setSpeed(+val.target.value)}/>
         </header>
         <main>
-          <canvas></canvas>
+          <Board game={new GameOfLife()} ref={this.board}/>
         </main>
       </div>
     );
