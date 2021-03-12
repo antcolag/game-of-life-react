@@ -62,18 +62,20 @@ export default class Board extends React.Component<{game: GameOfLife}> {
 
   update() {
     this.draw()
-
-    this.props.game.next()
-
     if(this.speed === 100){
-      requestAnimationFrame(this.update.bind(this))
+      requestAnimationFrame(this.next.bind(this))
       return
     } else if(this.speed === 0) {
       this.stopped = true
       return
     }
     this.stopped = false
-    setTimeout(this.update.bind(this), this.mapPercValue())
+    setTimeout(this.next.bind(this), this.mapPercValue())
+  }
+
+  next() {
+    this.props.game.next()
+    this.update()
   }
 
   draw() {
