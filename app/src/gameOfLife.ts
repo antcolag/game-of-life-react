@@ -29,6 +29,9 @@ export default class GameOfLife {
 		const neighborsCount: number = this.neighborhood(i, j).reduce(
 			(prev, curr) => prev + (curr ? 1 : 0)
 		, 0)
+		if(((i >= this.size.y - 1) || (j >= this.size.x - 1)) && this.isAlive(i, j)){
+			return false
+		}
 		if (!(this.tilemap[i] || [])[j]) {
 			return neighborsCount === 3
 		} else {
