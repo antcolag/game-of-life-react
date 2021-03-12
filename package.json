@@ -4,7 +4,11 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "cd app; npm build",
+    "eject": "cd app; npm eject",
+    "test": "cd app; npm test",
+    "start": "cd app; npm start",
+    "install": "cd app; npm i"
   },
   "keywords": [],
   "author": "",
