@@ -1,13 +1,16 @@
 export default class GameOfLife {
-	tilemap: boolean[][] = [
+	tilemap: boolean[][];
+	size: Coords;
+	clearEdges: boolean;
+
+	constructor(tilemap: boolean[][] = [
 		[false, true, false],
 		[false, false, true],
 		[true, true, true],
-	];
-
-	size: Coords = {
-		x: 8,
-		y: 8
+	], size: Coords = new Coords(tilemap.length, tilemap[0].length), clearEdges: boolean = true){
+		this.size = size
+		this.tilemap = tilemap
+		this.clearEdges = clearEdges
 	}
 
 	next(){
