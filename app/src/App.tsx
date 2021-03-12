@@ -23,6 +23,7 @@ class App extends React.Component {
     this.board?.current?.setSizeY(+(this.sizeY?.current?.value || '0'))
     this.board?.current?.setSpeed(+(this.speedSlider?.current?.value || '0'))
     this.board?.current?.update()
+    window.addEventListener('resize', (this.board?.current?.resize.bind(this.board?.current)) || function() {})
   }
 
   render() {

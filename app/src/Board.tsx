@@ -13,15 +13,15 @@ export default class Board extends React.Component<{game: GameOfLife}> {
     this.output = React.createRef();
   }
 
-	setSizeX(x: number) {
-		this.props.game.size.x = x
+  setSizeX(x: number) {
+    this.props.game.size.x = x
     this.draw()
-	}
+  }
 
-	setSizeY(y: number) {
-		this.props.game.size.y = y
+  setSizeY(y: number) {
+    this.props.game.size.y = y
     this.draw()
-	}
+  }
 
   componentDidMount() {
     this.output?.current?.addEventListener("click", e => {

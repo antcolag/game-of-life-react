@@ -4,11 +4,6 @@
   border: 0;
 }
 
-canvas {
-  width: 95%;
-  height: 95%;
-}
-
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
@@ -18,29 +13,8 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-.App {
-  display: flex;
-  flex-direction: column;
-}
-
 main {
   position: relative;
   flex-grow: 1;
   background-color: lightgray;
-}
-
-label {
-  margin-right: 1em;
-  padding: 2px 0.3em;
-  border: 1px solid;
-}
-
-.App,
-canvas {
-  top: 0;
-  bottom: 0;
-  right: 0;
-  left: 0;
-  margin: auto;
-  position: absolute;
 }
