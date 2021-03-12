@@ -3,11 +3,15 @@ export default class GameOfLife {
 	size: Coords;
 	clearEdges: boolean;
 
-	constructor(tilemap: boolean[][] = [
-		[false, true, false],
-		[false, false, true],
-		[true, true, true],
-	], size: Coords = new Coords(tilemap.length, tilemap[0].length), clearEdges: boolean = true){
+	constructor(
+		tilemap: boolean[][] = [
+			[false, true, false],
+			[false, false, true],
+			[true, true, true],
+		],
+		size: Coords = new Coords(tilemap.length, tilemap[0].length),
+		clearEdges: boolean = true
+	){
 		this.size = size
 		this.tilemap = tilemap
 		this.clearEdges = clearEdges
@@ -25,14 +29,14 @@ export default class GameOfLife {
 	}
 
 	isAlive(i: number, j: number) {
-		return this.tilemap[i] && this.tilemap[i][j] || false
+		return this.tilemap[i] ? this.tilemap[i][j] : false
 	}
 
 	private cellWillLive(i: number, j: number) {
 		const neighborsCount: number = this.neighborhood(i, j).reduce(
 			(prev, curr) => prev + (curr ? 1 : 0)
 		, 0)
-		if(((i >= this.size.y - 1) || (j >= this.size.x - 1)) && this.isAlive(i, j)){
+		if(this.isEdge(i, j) && this.isAlive(i, j) && this.clearEdges){
 			return false
 		}
 		if (!(this.tilemap[i] || [])[j]) {
@@ -40,6 +44,10 @@ export default class GameOfLife {
 		} else {
 			return neighborsCount === 2 || neighborsCount === 3
 		}
+	}
+
+	private isEdge(i:number, j:number) {
+		return (i >= this.size.y - 1) || (j >= this.size.x - 1)
 	}
 
 	private neighborhood(i: number, j: number) {

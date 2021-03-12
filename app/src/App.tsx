@@ -44,7 +44,7 @@ class App extends React.Component {
           </label>
         </header>
         <main>
-          <Board game={new GameOfLife()} ref={this.board}/>
+          <Board game={new GameOfLife()} ref={this.board} clearEdges={true}/>
         </main>
       </div>
     );

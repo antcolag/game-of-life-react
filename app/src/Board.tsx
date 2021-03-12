@@ -2,12 +2,17 @@ import React, {RefObject} from 'react';
 import GameOfLife from './gameOfLife'
 import './App.css';
 
-export default class Board extends React.Component<{game: GameOfLife}> {
+class BoardProperties {
+  game: GameOfLife = new GameOfLife()
+  clearEdges:boolean = true
+}
+
+export default class Board extends React.Component<BoardProperties> {
   output?: RefObject<HTMLCanvasElement>;
   frameCount: number = 0;
   speed: number = 1000/60;
   stopped: boolean = false;
-  constructor(props: {game: GameOfLife}) {
+  constructor(props:BoardProperties) {
     super(props);
     console.log(this)
     this.output = React.createRef();
