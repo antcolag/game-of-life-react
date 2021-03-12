@@ -5,7 +5,7 @@ import './App.css';
 export default class Board extends React.Component<{game: GameOfLife}> {
   output?: RefObject<HTMLCanvasElement>;
   frameCount: number = 0;
-  speed: number = 1/60;
+  speed: number = 1000/60;
   stopped: boolean = false;
   constructor(props: {game: GameOfLife}) {
     super(props);
@@ -33,7 +33,7 @@ export default class Board extends React.Component<{game: GameOfLife}> {
       this.draw()
     });
     this.resize()
-    this.update()
+    this.draw()
   }
 
   resize() {

@@ -22,6 +22,7 @@ class App extends React.Component {
     this.board?.current?.setSizeX(+(this.sizeX?.current?.value || '0'))
     this.board?.current?.setSizeY(+(this.sizeY?.current?.value || '0'))
     this.board?.current?.setSpeed(+(this.speedSlider?.current?.value || '0'))
+    this.board?.current?.update()
   }
 
   render() {
