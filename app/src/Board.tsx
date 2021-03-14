@@ -4,7 +4,7 @@ import './App.css';
 
 class BoardProperties {
   game: GameOfLife = new GameOfLife()
-  clearEdges:boolean = true
+  infinite:boolean = true
 }
 
 export default class Board extends React.Component<BoardProperties> {
@@ -18,12 +18,12 @@ export default class Board extends React.Component<BoardProperties> {
   }
 
   setSizeX(x: number) {
-    this.props.game.size.x = x
+    this.props.game.size.maxx = x
     this.draw()
   }
 
   setSizeY(y: number) {
-    this.props.game.size.y = y
+    this.props.game.size.maxy = y
     this.draw()
   }
 
@@ -31,8 +31,8 @@ export default class Board extends React.Component<BoardProperties> {
     this.output?.current?.addEventListener("click", e => {
       const {height, width} = this.getTileSize()
       const rect = this.output?.current?.getBoundingClientRect();
-      const x = ((e.clientX - (rect?.left || 0)) / width) >>> 0
-      const y = ((e.clientY - (rect?.top || 0)) / height) >>> 0
+      const x = (((e.clientX - (rect?.left || 0)) / width) >>> 0) + this.props.game.size.minx
+      const y = (((e.clientY - (rect?.top || 0)) / height) >>> 0) + this.props.game.size.miny
       this.props.game.tilemap[y][x] = !this.props.game.tilemap[y][x]
       this.draw()
     });
@@ -49,8 +49,8 @@ export default class Board extends React.Component<BoardProperties> {
 
   getTileSize() {
     return  {
-      width: (this.output?.current?.width || 0) / (this.props.game.size.x),
-      height: (this.output?.current?.height || 0) / (this.props.game.size.y)
+      width: (this.output?.current?.width || 0) / (this.props.game.size.getSizeX()),
+      height: (this.output?.current?.height || 0) / (this.props.game.size.getSizeY())
     }
   }
 
@@ -89,10 +89,15 @@ export default class Board extends React.Component<BoardProperties> {
     }
     ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height)
     const {height, width } = this.getTileSize()
-    for(let i=0; i < this.props.game.size.y; i++) {
-      for(let j=0; j < this.props.game.size.x; j++) {
+    for(let i = this.props.game.size.miny; i < this.props.game.size.maxy; i++) {
+      for(let j = this.props.game.size.minx; j < this.props.game.size.maxx; j++) {
         ctx.fillStyle = this.props.game.isAlive(j, i) ? '#000000' : '#FFFFFF'
-        ctx.fillRect(i * width, j * height, width + 1, height + 1);
+        ctx.fillRect(
+          (i - this.props.game.size.miny) * width,
+          (j - this.props.game.size.minx) * height,
+          width + 1,
+          height + 1
+        );
       }
     }
   }
