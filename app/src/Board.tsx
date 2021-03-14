@@ -45,6 +45,7 @@ export default class Board extends React.Component<BoardProperties> {
       this.output.current.width  = this.output.current.offsetWidth;
       this.output.current.height = this.output.current.offsetHeight;
     }
+    this.draw()
   }
 
   getTileSize() {
