@@ -4,11 +4,11 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "cd app; npm build",
-    "eject": "cd app; npm eject",
+    "build": "cd app; npm run build",
+    "eject": "cd app; npm run eject",
     "test": "cd app; npm test",
     "start": "cd app; npm start",
-    "install": "cd app; npm i"
+    "install": "cd app; npm install"
   },
   "keywords": [],
   "author": "",

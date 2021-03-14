@@ -4,7 +4,7 @@ import './App.css';
 
 class BoardProperties {
   game: GameOfLife = new GameOfLife()
-  infinite:boolean = true
+  infinite?:boolean = true
 }
 
 export default class Board extends React.Component<BoardProperties> {
@@ -15,7 +15,7 @@ export default class Board extends React.Component<BoardProperties> {
   constructor(props:BoardProperties) {
     super(props);
     this.output = React.createRef();
-    this.props.game.infinite = this.props.infinite
+    this.props.game.infinite = this.props.infinite || false
   }
 
   setSizeX(x: number) {
@@ -85,6 +85,10 @@ export default class Board extends React.Component<BoardProperties> {
   }
 
   draw() {
+    if(!this.output?.current?.getContext) {
+      return
+    }
+
     const ctx = this.output?.current?.getContext("2d")
     if(!ctx) {
       return
