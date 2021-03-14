@@ -15,6 +15,7 @@ export default class Board extends React.Component<BoardProperties> {
   constructor(props:BoardProperties) {
     super(props);
     this.output = React.createRef();
+    this.props.game.infinite = this.props.infinite
   }
 
   setSizeX(x: number) {

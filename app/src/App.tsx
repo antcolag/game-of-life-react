@@ -25,6 +25,20 @@ class App extends React.Component {
     window.addEventListener('resize', (this.board?.current?.resize.bind(this.board?.current)) || function() {})
   }
 
+  infinite(val:boolean) {
+    if(this.sizeX?.current){
+      this.sizeX.current.disabled = val
+      this.board?.current?.setSizeX(+this.sizeX.current.value)
+    }
+    if(this.sizeY?.current){
+      this.sizeY.current.disabled = val
+      this.board?.current?.setSizeY(+this.sizeY.current.value)
+    }
+    if(this.board?.current) {
+      this.board.current.props.game.infinite = val
+    }
+  }
+
   render() {
     return (
       <div className="App">
@@ -40,6 +54,10 @@ class App extends React.Component {
           <label>
             <input type="range" min={1} max={100} ref={this.sizeY} onChange={evt => this.board?.current?.setSizeY(+evt.target.value)}/>
             size y
+          </label>
+          <label>
+            <input type="checkbox" onChange={evt => this.infinite(evt.target.checked)}/>
+            infinite
           </label>
         </header>
         <main>
