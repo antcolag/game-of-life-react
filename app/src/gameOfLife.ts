@@ -37,32 +37,33 @@ export default class GameOfLife {
 			(prev, curr) => prev + (curr ? 1 : 0)
 		, 0)
 		if(this.isEdge(i, j) && this.isAlive(i, j) && this.infinite){
+			const valMax = Math.max(i, j)
+			const valMin = Math.min(i, j)
 			const minY = Object.keys(this.tilemap).reduce(
 				(prev, curr) => Math.min(prev, +curr)
 			, 0)
-			const minX = Object.keys(this.tilemap[i]).reduce(
-				(prev, curr) => Math.min(prev, +curr)
-			, 0)
-			const maxY = Object.keys(this.tilemap).reduce(
-				(prev, curr) => Math.max(prev, +curr)
-			, 0)
-			const maxX = Object.keys(this.tilemap[i]).reduce(
-				(prev, curr) => Math.max(prev, +curr)
-			, 0)
-
-			if(minY === i) {
+			if(minY === valMin) {
 				this.size.miny--
 			}
 
-			if(maxY === i) {
-				this.size.maxy++
-			}
-
-			if(minX === i) {
+			const minX = Object.keys(this.tilemap[i]).reduce(
+				(prev, curr) => Math.min(prev, +curr)
+			, 0)
+			if(minX === valMin) {
 				this.size.minx--
 			}
 
-			if(maxX === i) {
+			const maxY = Object.keys(this.tilemap).reduce(
+				(prev, curr) => Math.max(prev, +curr)
+			, 0)
+			if(maxY === valMax) {
+				this.size.maxy++
+			}
+
+			const maxX = Object.keys(this.tilemap[i]).reduce(
+				(prev, curr) => Math.max(prev, +curr)
+			, 0)
+			if(maxX === valMax) {
 				this.size.maxx++
 			}
 		}
