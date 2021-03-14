@@ -11,7 +11,6 @@ class App extends React.Component {
   sizeY?: RefObject<HTMLInputElement>;
   constructor(props: any) {
     super(props);
-    console.log(this)
     this.board = React.createRef();
     this.speedSlider = React.createRef();
     this.sizeX = React.createRef();
@@ -44,7 +43,7 @@ class App extends React.Component {
           </label>
         </header>
         <main>
-          <Board game={new GameOfLife()} ref={this.board} clearEdges={true}/>
+          <Board game={new GameOfLife()} ref={this.board} clearEdges={false}/>
         </main>
       </div>
     );

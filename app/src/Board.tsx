@@ -14,7 +14,6 @@ export default class Board extends React.Component<BoardProperties> {
   stopped: boolean = false;
   constructor(props:BoardProperties) {
     super(props);
-    console.log(this)
     this.output = React.createRef();
   }
 
